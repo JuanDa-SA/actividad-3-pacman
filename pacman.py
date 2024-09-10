@@ -19,11 +19,12 @@ path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
+"""Cambie la velocidad de los fantasmas. Autor: Alberto Silva"""
 ghosts = [
-    [vector(-180, 160), vector(5, 0)],
-    [vector(-180, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
+    [vector(-180, 160), vector(10, 0)],
+    [vector(-180, -160), vector(0, 10)],
+    [vector(100, 160), vector(0, -10)],
+    [vector(100, -160), vector(-10, 0)],
 ]
 # fmt: off
 
@@ -107,7 +108,7 @@ def world():
                 path.up()
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
-                
+
 def ghost_movement(point, pacman):
     "Checar las posiciones del pacman para que el fantasma se mueva en el rango. Autor: Juan Daniel"
     if pacman.x > point.x:
@@ -165,7 +166,8 @@ def move():
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+    """Cambie la velocidad del juego. Autor: Alberto Silva"""
+    ontimer(move, 50)
 
 
 def change(x, y):
