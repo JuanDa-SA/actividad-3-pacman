@@ -105,6 +105,20 @@ def world():
                 path.up()
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
+                
+def ghost_movement(point, pacman):
+    "Checar las posiciones del pacman para que el fantasma se mueva en el rango. Autor: Juan Daniel"
+    if pacman.x > point.x:
+        return vector(5, 0)
+    elif pacman.x < point.x:
+        return vector(-5, 0)
+
+    if pacman.y > point.y:
+        return vector(0, 5)
+    elif pacman.y < point.y:
+        return vector(0, -5)
+
+    return vector(0, 0)
 
 
 def move():
@@ -134,15 +148,10 @@ def move():
         if valid(point + course):
             point.move(course)
         else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+            "Llamada a la funcion que mueve a los fantasmas en la direccion de pacman. Autor: Juan Daniel"
+            new_course = ghost_movement(point, pacman)
+            course.x = new_course.x
+            course.y = new_course.y
 
         up()
         goto(point.x + 10, point.y + 10)
