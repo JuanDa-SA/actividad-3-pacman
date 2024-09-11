@@ -111,15 +111,19 @@ def world():
 
 def ghost_movement(point, pacman):
     "Checar las posiciones del pacman para que el fantasma se mueva en el rango. Autor: Juan Daniel"
-    if pacman.x > point.x:
-        return vector(5, 0)
-    elif pacman.x < point.x:
-        return vector(-5, 0)
+    options = [
+        vector(5, 0),   # Move right
+        vector(-5, 0),  # Move left
+        vector(0, 5),   # Move up
+        vector(0, -5)   # Move down
+    ]
 
-    if pacman.y > point.y:
-        return vector(0, 5)
-    elif pacman.y < point.y:
-        return vector(0, -5)
+    # Find valid directions the ghost can move
+    valid_options = [option for option in options if valid(point + option)]
+
+    # Sort valid options by which one gets the ghost closest to Pacman
+    if valid_options:
+        return min(valid_options, key=lambda option: (abs((point + option).x - pacman.x) + abs((point + option).y - pacman.y)))
 
     return vector(0, 0)
 
